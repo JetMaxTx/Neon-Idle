@@ -1,34 +1,640 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Neon Nexus Tycoon - Ultimate Endgame</title><style>
-:root{--bg:#111310;--panel:#1b201b;--line:#465044;--text:#f5f1e7;--muted:#b0b6a8;--cyan:#58d6b0;--violet:#e06c47;--gold:#f2c14e;--green:#7bd389;--red:#ef6f6c;--shadow:0 20px 60px #0009}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#244538 0,transparent 34%),radial-gradient(circle at 90% 18%,#6a341f 0,transparent 31%),linear-gradient(145deg,#111310,#181510 72%);color:var(--text);font-family:Inter,Segoe UI,system-ui,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer;color:inherit}.app{width:min(1440px,96%);margin:auto;padding:18px 0 40px}.glass{background:#1a201bdc;border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(12px)}header{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:18px 22px;border-radius:20px;margin-bottom:12px}h1{margin:0;font-size:clamp(1.6rem,3vw,2.5rem)}h1 span{color:var(--cyan)}header p,.sub{color:var(--muted)}.topstats,.toolbar{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#273029;border:1px solid var(--line);border-radius:12px;padding:9px 12px}.chip b{color:var(--gold)}nav{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:12px}.tab,.btn{background:#252c25;border:1px solid var(--line);border-radius:12px;padding:11px 13px;transition:.16s}.tab:hover,.btn:hover:not(:disabled){transform:translateY(-1px);border-color:var(--cyan)}.tab.active,.btn.primary{background:linear-gradient(135deg,var(--violet),#b94e34);border-color:transparent}.btn.gold{background:linear-gradient(135deg,#98600b,#e9a820);border-color:#ffd166;color:#171108;font-weight:800}.btn.red{background:#59233a}.btn:disabled{opacity:.42;cursor:not-allowed}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.7fr);gap:12px}.panel{border-radius:18px;padding:18px;margin-bottom:12px}.hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.money{font-size:clamp(2.2rem,6vw,4.8rem);font-weight:900;color:var(--gold)}.rate{color:var(--green)}.businesses,.list{display:grid;gap:10px}.biz{display:grid;grid-template-columns:66px 1fr auto;gap:12px;align-items:center;background:linear-gradient(135deg,#263127,#191e19);border:1px solid var(--line);border-radius:15px;padding:12px}.biz.locked{filter:saturate(.35);opacity:.72}.biz-icon{width:58px;aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:1.75rem;background:linear-gradient(135deg,#315944,#6a3828)}.biz h3,.card h3{margin:0 0 4px}.mini{font-size:.77rem;background:#151a15;border:1px solid var(--line);border-radius:999px;padding:4px 7px}.buy{min-width:150px}.progress{height:11px;background:#121712;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:8px}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));width:0}.card,.kpi{background:#252d25;border:1px solid var(--line);border-radius:14px;padding:13px}.card.done,.card.owned{border-color:var(--green);background:#264334}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tree,.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi strong{display:block;font-size:1.4rem;color:var(--cyan)}.prestige-level{font-size:4rem;font-weight:900;color:#ff9b73}.save-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}input[type=file]{display:none}.toast{position:fixed;right:20px;bottom:20px;background:#252d25;border:1px solid var(--cyan);padding:12px 16px;border-radius:12px;transform:translateY(120px);opacity:0;transition:.25s;z-index:10}.toast.show{transform:none;opacity:1}@media(max-width:1000px){nav{grid-template-columns:repeat(4,1fr)}.grid,.split{grid-template-columns:1fr}.tree,.ach-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){header{grid-template-columns:1fr}nav{grid-template-columns:repeat(2,1fr)}.biz{grid-template-columns:54px 1fr}.buy{grid-column:1/-1;width:100%}.tree,.ach-grid,.save-grid,.kpis{grid-template-columns:1fr}}
-</style></head><body><div class="app"><header class="glass"><div><h1>NEON <span>NEXUS</span> TYCOON</h1><p>Ultimate Endgame Edition</p></div><div class="topstats"><span class="chip">Crédits <b id="moneyTop">0</b></span><span class="chip">/s <b id="rateTop">0</b></span><span class="chip">Noyaux <b id="coresTop">0</b></span><span class="chip">Quantum <b id="qtTop">0</b></span></div></header>
-<nav><button class="tab active" data-page="empire">Empire</button><button class="tab" data-page="upgrades">Améliorations</button><button class="tab" data-page="research">Recherche</button><button class="tab" data-page="quantum">Quantum</button><button class="tab" data-page="projects">Projets</button><button class="tab" data-page="prestige">Transcendance</button><button class="tab" data-page="analytics">Analyses</button><button class="tab" data-page="vault">Coffre</button></nav><main>
-<section id="empire" class="page active"><div class="grid"><div><div class="panel glass hero"><div><div class="sub">CAPITAL DISPONIBLE</div><div class="money" id="money">0 ¢</div><div class="rate">+<span id="rate">0</span> ¢/s</div></div><div class="toolbar"><button id="manualBtn" class="btn primary">⚡ Générer <span id="manualPower">1</span></button><button class="btn" id="buyMode">Achat : x1</button></div></div><div class="panel glass"><h2>Divisions</h2><div id="businessList" class="businesses"></div></div></div><aside><div class="panel glass"><h3>⚡ Événement</h3><b id="eventName">Marché stable</b><p id="eventDesc" class="sub"></p><div class="progress"><span id="eventBar"></span></div><p>Temps : <b id="eventTime">--</b></p></div><div class="panel glass"><h3>Mission</h3><div id="missionBox"></div></div><div class="panel glass"><h3>Vue exécutive</h3><p>Historique : <b id="netWorth">0</b></p><p>Multiplicateur : <b id="globalMult">x1</b></p><p>Temps : <b id="playTime">00:00:00</b></p></div></aside></div></section>
-<section id="upgrades" class="page"><div class="panel glass"><h2>Améliorations commerciales</h2><div id="upgradeList" class="tree"></div></div></section>
-<section id="research" class="page"><div class="panel glass"><h2>Recherche permanente</h2><p>Points : <b id="rp">0</b> 🧬</p><div id="researchTree" class="tree"></div><div class="card"><h3>Recherche infinie</h3><p>Rang <b id="infLevel">0</b>, +1 % de production par rang.</p><button id="infBtn" class="btn primary"></button></div></div></section>
-<section id="quantum" class="page"><div class="panel glass"><h2>Réseau Quantum</h2><p>Jetons : <b id="qt">0</b> ♦. Déblocage après la première transcendance.</p><div id="quantumTree" class="tree"></div></div><div class="panel glass"><h2>Super Contrat</h2><div id="contractBox"></div></div></section>
-<section id="projects" class="page"><div class="panel glass"><h2>Méga-projets</h2><p class="sub">Achetez des constructions permanentes qui survivent aux transcendances.</p><div id="projectList" class="tree"></div></div><div class="panel glass"><h2>Ascension</h2><p>Fragments : <b id="shards">0</b>. L'ascension demande 5 transcendances et 1e75 crédits de session.</p><button id="ascendBtn" class="btn gold">Ascension</button></div></section>
-<section id="prestige" class="page"><div class="split"><div class="panel glass"><div class="sub">NIVEAU DE TRANSCENDANCE</div><div class="prestige-level" id="prestigeLevel">0</div><p>Chaque palier demande 500 fois plus de crédits. Les noyaux, recherches, Jetons Quantum, projets et fragments sont conservés.</p><div class="progress"><span id="prestigeProgress"></span></div><p id="prestigeRequirement"></p><button id="prestigeBtn" class="btn gold">Transcender</button></div><div class="panel glass"><h2>Boutique de noyaux</h2><div id="coreShop" class="list"></div></div></div></section>
-<section id="analytics" class="page"><div class="kpis"><div class="kpi">Session<strong id="sessionGain">0</strong></div><div class="kpi">Historique<strong id="lifetime">0</strong></div><div class="kpi">Meilleur /s<strong id="bestRate">0</strong></div><div class="kpi">Missions<strong id="missionsDone">0</strong></div></div><div class="panel glass"><h2>Succès</h2><div id="achievementList" class="ach-grid"></div></div></section>
-<section id="vault" class="page"><div class="panel glass"><h2>Coffre</h2><div class="save-grid"><button id="saveBtn" class="btn primary">Sauvegarder</button><button id="exportBtn" class="btn">Exporter JSON</button><label for="importFile" class="btn" style="text-align:center">Importer JSON</label><input id="importFile" type="file" accept=".json"><button id="resetBtn" class="btn red">Nouvelle partie</button></div><p id="saveStatus" class="sub"></p></div></section></main></div><div class="toast" id="toast"></div>
-<script>(()=>{'use strict';const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],KEY='neonNexusSaveV1';let storageOK=true;
-const businesses=[['kiosk','🖥️','Kiosque numérique',15,1,0],['studio','🎮','Studio indépendant',180,12,100],['cloud','☁️','Centre Cloud',2200,95,1500],['robot','🤖','Usine robotique',28000,720,18000],['orbital','🛰️','Réseau orbital',4.2e5,6200,2.5e5],['quantum','⚛️','Laboratoire quantique',7e6,5.8e4,4e6],['lunar','🌙','Colonie lunaire',1.3e8,6.2e5,7.5e7],['dyson','☀️','Essaim de Dyson',3e9,8e6,1.5e9],['temporal','⏳','Division temporelle',8e11,4e8,5e10],['aiworld','🧠','Réseau IA mondial',4e13,3e10,2e12],['singularity','🌀','Singularity Labs',3e15,2e12,1e14],['fusion','⚡','Méga-réacteurs',5e17,2e14,2e16],['galactic','🌌','Galactic Systems',8e19,3e16,3e18],['stellar','⭐','Stellar Forge',9e21,4e18,5e20],['dyson2','🌞','Sphère de Dyson',7e24,5e21,4e23],['wormhole','🕳️','Portails Wormhole',6e27,5e24,4e26],['multiverse','🌠','Multiverse Network',8e30,8e27,5e29],['nexusprime','👑','Nexus Prime',1e34,1e31,7e32],['infinity','♾️','Infinity Core',2e38,1e35,1e37],['omega','🔱','Omega Industries',5e42,3e39,2e41],['eternal','💠','Eternal Empire',9e47,6e44,3e46],['celestial','🌍','Celestial Nexus',8e53,4e50,1e52],['ascension','🚀','Ascension Protocol',1e60,1e57,5e58],['transcendent','🌈','Transcendent Nexus',1e68,1e65,1e67],['godmind','🔮','GodMind Engine',1e77,1e74,1e76],['reality','🌐','Reality Fabricator',1e88,1e85,1e87],['omniverse','🌌','Omniverse Constructor',1e100,1e97,1e99],['eternity','✨','Eternity Core',1e115,1e112,1e114]].map(x=>({id:x[0],icon:x[1],name:x[2],base:x[3],rate:x[4],unlock:x[5]}));
-const upgrades=[['u1','Marketing viral','Production x2',2.5e4,'global',2],['click1','Interface neurale','Clic x10',7.5e5,'click',10],['u2','Automatisation lean','Production x2',5e6,'global',2],['u3','IA opérationnelle','Production x3',2e9,'global',3],['click2','Commande prédictive','Clic x25',8e11,'click',25],['u4','Réseau supraconducteur','Production x4',1.5e12,'global',4],['u5','Économie interplanétaire','Production x5',2e15,'global',5],['u6','Singularité productive','Production x10',5e18,'global',10],['u7','Hyper Nexus','Production x20',1e25,'global',20],['u8','Conscience galactique','Production x50',1e35,'global',50],['u9','Réseau infini','Production x100',1e50,'global',100],['u10','Omni-production','Production x250',1e70,'global',250]].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],effect:x[4],mult:x[5]}));
-const research=[['r1','Économie d’échelle','+25 % production',1,null],['r2','Batteries autonomes','+20 % hors-ligne',2,'r1'],['r3','Analyse prédictive','+50 % missions',3,'r1'],['r4','Hyperautomatisation','+35 % production',4,'r2'],['r5','Marchés quantiques','Événements +50 %',5,'r3'],['r6','Boucle temporelle','+50 % hors-ligne',7,'r4']].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],req:x[4]}));
-const cores=[['c1','Architecture fractale','+50 % permanent',1,.5],['c2','Capital récursif','+100 % permanent',3,1],['c3','Matrice cosmique','+200 % permanent',7,2],['c4','Conscience industrielle','+500 % permanent',15,5]].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],bonus:x[4]}));
-const qnodes=[['q1','Calcul prédictif','Production +25 %',1,1.25],['q2','Nano-optimisation','Production x1,5',3,1.5],['q3','Compression dimensionnelle','Production x2',8,2],['q4','Singularité contrôlée','Production x3',20,3]] .map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],mult:x[4]}));
-const projects=[['p1','Sphère autonome','Production x5',5e32,5],['p2','IA omnisciente','Production x10',1e50,10],['p3','Réacteur quantique','Production x25',1e70,25]].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],mult:x[4]}));
-const achievements=[['a1','Premier pas','Générer 1 000 crédits',s=>s.lifetime>=1e3],['a2','Entrepreneur','Posséder 50 divisions',s=>totalOwned(s)>=50],['a3','Magnat','Générer 1 million',s=>s.lifetime>=1e6],['a4','Empire','Générer 1 milliard',s=>s.lifetime>=1e9],['a5','Transcendant','Effectuer une transcendance',s=>s.prestige>=1],['a6','Architecte cosmique','Débloquer Dyson',s=>s.biz.dyson>0],['a7','Empire galactique','Atteindre 1e18',s=>s.lifetime>=1e18],['a8','Maître du multivers','Atteindre 1e36',s=>s.lifetime>=1e36],['a9','Architecte omniversel','Atteindre 1e75',s=>s.lifetime>=1e75],['a10','Au-delà du temps','Atteindre 1e120',s=>s.lifetime>=1e120]];
-const fresh=()=>({version:4,money:25,lifetime:0,sessionGain:0,biz:Object.fromEntries(businesses.map(b=>[b.id,0])),upgrades:[],research:[],cores:0,coreItems:[],rp:0,prestige:0,buyMode:1,missionsDone:0,playTime:0,bestRate:0,achievements:[],lastSave:Date.now(),event:{type:'none',mult:1,end:Date.now()+3e4,next:Date.now()+3e4},mission:null,qt:0,qnodes:[],infLevel:0,projects:[],shards:0,ascensions:0,contract:null});let state=load(),last=performance.now(),lastRender=0,toastTimer;
-function load(){try{let x=JSON.parse(localStorage.getItem(KEY));if(x)return{...fresh(),...x,biz:{...fresh().biz,...x.biz}}}catch(e){}return fresh()}function save(){state.lastSave=Date.now();try{localStorage.setItem(KEY,JSON.stringify(state));$('#saveStatus').textContent='Sauvegarde : '+new Date().toLocaleTimeString('fr-FR')}catch(e){storageOK=false}}
-const fmt=n=>{if(!isFinite(n))return'∞';if(Math.abs(n)<1000)return Math.floor(n).toLocaleString('fr-FR');if(Math.abs(n)>=1e36)return n.toExponential(2).replace('+','');let u=['k','M','Md','B','T','Qa','Qi','Sx','Sp','Oc','No'],i=-1;while(Math.abs(n)>=1000&&i<u.length-1){n/=1000;i++}return n.toLocaleString('fr-FR',{maximumFractionDigits:2})+' '+u[i]},totalOwned=s=>Object.values(s.biz).reduce((a,b)=>a+b,0),upgMult=t=>upgrades.filter(u=>u.effect===t&&state.upgrades.includes(u.id)).reduce((a,u)=>a*u.mult,1),coreMult=()=>1+cores.filter(c=>state.coreItems.includes(c.id)).reduce((a,c)=>a+c.bonus,0),qMult=()=>qnodes.filter(q=>state.qnodes.includes(q.id)).reduce((a,q)=>a*q.mult,1),projectMult=()=>projects.filter(p=>state.projects.includes(p.id)).reduce((a,p)=>a*p.mult,1),globalMult=()=>upgMult('global')*coreMult()*(1+(state.research.includes('r1')?.25:0)+(state.research.includes('r4')?.35:0))*qMult()*projectMult()*(1+state.infLevel*.01)*(1+state.prestige*.1+state.cores*.25)*(1+state.shards*.5)*(Date.now()<state.event.end?state.event.mult:1),bizRate=b=>(state.biz[b.id]||0)*b.rate*globalMult(),rate=()=>businesses.reduce((a,b)=>a+bizRate(b),0),manual=()=>Math.max(1,Math.sqrt(Math.max(1,rate())))*upgMult('click'),price=(b,n=state.buyMode)=>b.base*Math.pow(1.15,state.biz[b.id]||0)*(Math.pow(1.15,n)-1)/.15,goal=()=>1e9*Math.pow(500,state.prestige);
-function toast(t){let e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),2500)}function buyBiz(b){let c=price(b);if(state.money>=c){state.money-=c;state.biz[b.id]+=state.buyMode;render()}}function createMission(){let k=['earn','own','rate'][Math.floor(Math.random()*3)],z=Math.max(1,state.missionsDone+1),target=k==='earn'?1e4*Math.pow(5,Math.floor(z/2)):k==='own'?20+z*10:500*Math.pow(4,Math.floor(z/2));state.mission={kind:k,target,start:k==='earn'?state.lifetime:0,reward:target*.12}}function missionValue(){let m=state.mission;return m.kind==='earn'?state.lifetime-m.start:m.kind==='own'?totalOwned(state):rate()}function claimMission(){if(missionValue()<state.mission.target)return;state.money+=state.mission.reward*(state.research.includes('r3')?1.5:1);state.rp++;state.missionsDone++;createMission();render()}
-function createContract(){let scale=state.prestige+state.ascensions*5+1;state.contract={target:1e10*Math.pow(30,scale),start:state.lifetime,reward:1+Math.floor(scale/3)}}function contractValue(){return state.lifetime-state.contract.start}function claimContract(){if(contractValue()<state.contract.target)return;state.qt+=state.contract.reward;createContract();toast('Jetons Quantum obtenus');render()}
-function renderBusinesses(){let el=$('#businessList');el.innerHTML='';businesses.forEach(b=>{let open=state.lifetime>=b.unlock||state.biz[b.id]>0,d=document.createElement('div'),c=price(b);d.className='biz'+(open?'':' locked');d.innerHTML=`<div class="biz-icon">${b.icon}</div><div><h3>${b.name}</h3><div class="sub">${open?'Niveau '+state.biz[b.id]:'Déblocage à '+fmt(b.unlock)}</div><span class="mini">${fmt(bizRate(b))}/s</span></div><button class="btn primary buy" ${!open||state.money<c?'disabled':''}>Acheter x${state.buyMode}<br><small>${fmt(c)} ¢</small></button>`;d.querySelector('button').onclick=()=>buyBiz(b);el.appendChild(d)})}
-function cards(el,data,owned,currency,buy){$(el).innerHTML='';data.forEach(x=>{let o=owned.includes(x.id),d=document.createElement('div');d.className='card'+(o?' owned':'');d.innerHTML=`<h3>${x.name}</h3><p class="sub">${x.desc}</p><button class="btn ${o?'':'primary'}" ${o?'disabled':''}>${o?'ACQUIS':fmt(x.cost)+' '+currency}</button>`;d.querySelector('button').onclick=()=>buy(x,o);$(el).appendChild(d)})}
-function renderAllCards(){cards('#upgradeList',upgrades,state.upgrades,'¢',(u,o)=>{if(!o&&state.money>=u.cost){state.money-=u.cost;state.upgrades.push(u.id);render()}});cards('#coreShop',cores,state.coreItems,'noyaux',(c,o)=>{if(!o&&state.cores>=c.cost){state.cores-=c.cost;state.coreItems.push(c.id);render()}});cards('#quantumTree',qnodes,state.qnodes,'♦',(q,o)=>{if(!o&&state.qt>=q.cost){state.qt-=q.cost;state.qnodes.push(q.id);render()}});cards('#projectList',projects,state.projects,'¢',(p,o)=>{if(!o&&state.money>=p.cost){state.money-=p.cost;state.projects.push(p.id);render()}});$('#researchTree').innerHTML='';research.forEach(x=>{let o=state.research.includes(x.id),lock=x.req&&!state.research.includes(x.req),d=document.createElement('div');d.className='card'+(o?' owned':'');d.innerHTML=`<h3>${x.name}</h3><p class="sub">${x.desc}</p><button class="btn" ${o||lock||state.rp<x.cost?'disabled':''}>${o?'RECHERCHÉ':x.cost+' 🧬'}</button>`;d.querySelector('button').onclick=()=>{state.rp-=x.cost;state.research.push(x.id);render()};$('#researchTree').appendChild(d)})}
-function transcend(){if(state.sessionGain<goal())return;if(!confirm('Transcender et gagner un noyau ?'))return;state.cores++;state.qt+=Math.max(0,Math.floor(state.prestige/2));state.prestige++;state.money=25;state.biz=fresh().biz;state.upgrades=[];state.sessionGain=0;state.mission=null;createMission();render()}function ascend(){if(state.prestige<5||state.sessionGain<1e75)return toast('Conditions non atteintes');if(!confirm('Ascension : réinitialiser également la transcendance ?'))return;let gain=Math.max(1,Math.floor(Math.log10(state.sessionGain)/25));state.shards+=gain;state.ascensions++;state.prestige=0;state.money=25;state.biz=fresh().biz;state.upgrades=[];state.sessionGain=0;state.cores=0;toast('Ascension réussie : +'+gain+' fragments');render()}
-function renderMission(){if(!state.mission)createMission();let m=state.mission,v=missionValue();$('#missionBox').innerHTML=`<b>${{earn:'Produire',own:'Posséder des divisions',rate:'Atteindre un revenu/s'}[m.kind]}</b><p>${fmt(v)} / ${fmt(m.target)}</p><div class="progress"><span style="width:${Math.min(100,v/m.target*100)}%"></span></div><p>Récompense : ${fmt(m.reward)} ¢ + 1 🧬</p><button id="claimMission" class="btn primary" ${v<m.target?'disabled':''}>Réclamer</button>`;$('#claimMission').onclick=claimMission}function renderContract(){if(!state.contract)createContract();let v=contractValue(),m=state.contract;$('#contractBox').innerHTML=`<p>Produire ${fmt(m.target)} crédits supplémentaires.</p><p>${fmt(v)} / ${fmt(m.target)}</p><div class="progress"><span style="width:${Math.min(100,v/m.target*100)}%"></span></div><p>Récompense : ${m.reward} ♦</p><button id="claimContract" class="btn gold" ${v<m.target?'disabled':''}>Réclamer</button>`;$('#claimContract').onclick=claimContract}
-function handleEvent(){let n=Date.now();if(n>=state.event.end&&state.event.type!=='none')state.event={type:'none',mult:1,end:n+3e4,next:n+3e4};if(state.event.type==='none'&&n>=state.event.next){let e=[['Boom du marché',2,45000],['Contrat gouvernemental',3,25000],['Pénurie énergétique',.55,30000],['Vague d’innovation',4,15000]][Math.floor(Math.random()*4)];state.event={type:e[0],mult:e[1],end:n+e[2],next:n+e[2]+5e4};toast('Événement : '+e[0])}}function renderEvent(){let a=state.event.type!=='none'&&Date.now()<state.event.end,r=(a?state.event.end:state.event.next)-Date.now();$('#eventName').textContent=a?state.event.type:'Marché stable';$('#eventDesc').textContent=a?'Multiplicateur x'+state.event.mult:'Prochain cycle économique';$('#eventTime').textContent=Math.max(0,Math.ceil(r/1000))+' s';$('#eventBar').style.width=(a?100:Math.max(0,100-r/500))+'%'}
-function checkAchievements(){achievements.forEach(a=>{if(!state.achievements.includes(a[0])&&a[3](state)){state.achievements.push(a[0]);state.rp++;toast('Succès : '+a[1])}})}function render(){let r=rate(),g=goal(),pct=Math.min(100,state.sessionGain/g*100);state.bestRate=Math.max(state.bestRate,r);$('#money').textContent=fmt(state.money)+' ¢';$('#moneyTop').textContent=fmt(state.money);$('#rate').textContent=$('#rateTop').textContent=fmt(r);$('#coresTop').textContent=state.cores;$('#qtTop').textContent=$('#qt').textContent=state.qt;$('#manualPower').textContent=fmt(manual());$('#netWorth').textContent=fmt(state.lifetime);$('#globalMult').textContent='x'+fmt(globalMult());$('#playTime').textContent=new Date((state.playTime%86400)*1000).toISOString().slice(11,19);$('#buyMode').textContent='Achat : x'+state.buyMode;$('#rp').textContent=state.rp;$('#prestigeLevel').textContent=state.prestige;$('#prestigeProgress').style.width=pct+'%';$('#prestigeRequirement').innerHTML=`${fmt(state.sessionGain)} / ${fmt(g)} (${pct.toFixed(3)} %)`;$('#prestigeBtn').disabled=state.sessionGain<g;$('#sessionGain').textContent=fmt(state.sessionGain);$('#lifetime').textContent=fmt(state.lifetime);$('#bestRate').textContent=fmt(state.bestRate);$('#missionsDone').textContent=state.missionsDone;$('#infLevel').textContent=state.infLevel;let ic=Math.ceil(10*Math.pow(1.35,state.infLevel));$('#infBtn').textContent='Rang suivant : '+ic+' 🧬';$('#infBtn').disabled=state.rp<ic;$('#shards').textContent=state.shards;$('#ascendBtn').disabled=state.prestige<5||state.sessionGain<1e75;renderBusinesses();renderAllCards();renderMission();renderContract();renderEvent();$('#achievementList').innerHTML=achievements.map(a=>`<div class="card ${state.achievements.includes(a[0])?'done':''}"><h3>🏆 ${a[1]}</h3><p class="sub">${a[2]}</p></div>`).join('')}
-$('#manualBtn').onclick=()=>{let n=manual();state.money+=n;state.lifetime+=n;state.sessionGain+=n;render()};$('#buyMode').onclick=()=>{state.buyMode=state.buyMode===1?10:state.buyMode===10?25:state.buyMode===25?100:1;render()};$('#prestigeBtn').onclick=transcend;$('#ascendBtn').onclick=ascend;$('#infBtn').onclick=()=>{let c=Math.ceil(10*Math.pow(1.35,state.infLevel));if(state.rp>=c){state.rp-=c;state.infLevel++;render()}};$('#saveBtn').onclick=()=>{save();toast('Partie sauvegardée')};$('#exportBtn').onclick=()=>{save();let b=new Blob([JSON.stringify({game:'Neon Nexus Tycoon',save:state},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='neon_nexus_ultimate_save.json';a.click()};$('#importFile').onchange=e=>{let f=e.target.files[0],rd=new FileReader();rd.onload=()=>{try{let d=JSON.parse(rd.result);state={...fresh(),...(d.save||d),biz:{...fresh().biz,...(d.save||d).biz}};save();render();toast('Sauvegarde importée')}catch{x=>x;toast('Fichier incompatible')}};rd.readAsText(f)};$('#resetBtn').onclick=()=>{if(confirm('Effacer cette partie ?')){state=fresh();save();render()}};$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab,.page').forEach(e=>e.classList.remove('active'));b.classList.add('active');$('#'+b.dataset.page).classList.add('active')});
-let offline=Math.min(172800,Math.max(0,(Date.now()-state.lastSave)/1000)),eff=Math.min(1,.35+(state.research.includes('r2')?.2:0)+(state.research.includes('r6')?.5:0)),gain=rate()*offline*eff;if(gain>0){state.money+=gain;state.lifetime+=gain;state.sessionGain+=gain;setTimeout(()=>toast('Hors ligne : +'+fmt(gain)),400)}if(!state.mission)createMission();if(!state.contract)createContract();render();setInterval(save,10000);function tick(now){let dt=Math.min(.5,(now-last)/1000);last=now;state.playTime+=dt;handleEvent();let n=rate()*dt;state.money+=n;state.lifetime+=n;state.sessionGain+=n;if(now-lastRender>500){lastRender=now;checkAchievements();render()}requestAnimationFrame(tick)}requestAnimationFrame(tick)})();</script></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Neon Nexus">
+<meta name="theme-color" content="#111310">
+<title>Neon Nexus Tycoon - Ultimate Endgame</title>
+<style>
+:root{--bg:#111310;--panel:#1b201b;--line:#465044;--text:#f5f1e7;--muted:#b0b6a8;--cyan:#58d6b0;--violet:#e06c47;--gold:#f2c14e;--green:#7bd389;--red:#ef6f6c;--shadow:0 20px 60px #0009}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:radial-gradient(circle at 15% 0,#244538 0,transparent 34%),radial-gradient(circle at 90% 18%,#6a341f 0,transparent 31%),linear-gradient(145deg,#111310,#181510 72%);background-color:#111310;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Inter,Segoe UI,system-ui,sans-serif;min-height:100dvh;overscroll-behavior-y:none;-webkit-text-size-adjust:100%}
+button,input,select{font:inherit;touch-action:manipulation}
+button{cursor:pointer;color:inherit;user-select:none;-webkit-user-select:none}
+.app{width:min(1440px,94%);margin:auto;padding-top:max(14px,env(safe-area-inset-top));padding-bottom:max(32px,env(safe-area-inset-bottom));padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+.glass{background:#1a201be6;border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+header{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:18px 22px;border-radius:20px;margin-bottom:12px}
+h1{margin:0;font-size:clamp(1.5rem,3vw,2.5rem)}
+h1 span{color:var(--cyan)}
+header p,.sub{color:var(--muted);margin:4px 0 0}
+.topstats,.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#273029;border:1px solid var(--line);border-radius:12px;padding:8px 11px;font-size:.92rem}
+.chip b{color:var(--gold)}
+nav{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:12px}
+.mobile-nav-wrap{display:none;margin-bottom:12px;position:relative}
+.mobile-select{width:100%;appearance:none;-webkit-appearance:none;background:linear-gradient(135deg,#252c25,#1b201b);border:1px solid var(--cyan);border-radius:14px;color:var(--text);font-size:16px;font-weight:700;padding:14px 44px 14px 16px;box-shadow:0 8px 24px #0006}
+.mobile-nav-wrap::after{content:"▾";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:1.2rem;pointer-events:none}
+.tab,.btn{background:#252c25;border:1px solid var(--line);border-radius:12px;padding:11px 13px;transition:.16s}
+.tab:hover,.btn:hover:not(:disabled){transform:translateY(-1px);border-color:var(--cyan)}
+.tab:active,.btn:active:not(:disabled){transform:scale(.97)}
+.tab.active,.btn.primary{background:linear-gradient(135deg,var(--violet),#b94e34);border-color:transparent;font-weight:700}
+.btn.gold{background:linear-gradient(135deg,#98600b,#e9a820);border-color:#ffd166;color:#171108;font-weight:800}
+.btn.red{background:#59233a}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.page{display:none}
+.page.active{display:block}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.7fr);gap:12px}
+.panel{border-radius:18px;padding:18px;margin-bottom:12px}
+.hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.money{font-size:clamp(2rem,7vw,4.8rem);font-weight:900;color:var(--gold);word-break:break-word}
+.rate{color:var(--green);font-weight:600}
+.businesses,.list{display:grid;gap:10px}
+.biz{display:grid;grid-template-columns:66px 1fr auto;gap:12px;align-items:center;background:linear-gradient(135deg,#263127,#191e19);border:1px solid var(--line);border-radius:15px;padding:12px}
+.biz.locked{filter:saturate(.35);opacity:.72}
+.biz-icon{width:58px;aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:1.75rem;background:linear-gradient(135deg,#315944,#6a3828)}
+.biz h3,.card h3{margin:0 0 4px}
+.mini{display:inline-block;margin-top:4px;font-size:.77rem;background:#151a15;border:1px solid var(--line);border-radius:999px;padding:4px 8px}
+.buy{min-width:150px}
+.progress{height:11px;background:#121712;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:8px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));width:0;transition:width .25s ease}
+.card,.kpi{background:#252d25;border:1px solid var(--line);border-radius:14px;padding:13px}
+.card.done,.card.owned{border-color:var(--green);background:#264334}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tree,.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.kpi strong{display:block;font-size:1.4rem;color:var(--cyan)}
+.prestige-level{font-size:4rem;font-weight:900;color:#ff9b73}
+.save-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+input[type=file]{display:none}
+.toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom));background:#252d25;border:1px solid var(--cyan);padding:12px 18px;border-radius:14px;transform:translate(-50%,140px);opacity:0;transition:.25s;z-index:50;white-space:nowrap;box-shadow:0 10px 30px #000b}
+.toast.show{transform:translate(-50%,0);opacity:1}
+@media(max-width:1000px){nav{grid-template-columns:repeat(4,1fr)}.grid,.split{grid-template-columns:1fr}.tree,.ach-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){header{grid-template-columns:1fr;padding:14px 16px}.topstats{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.chip{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;padding:7px 10px}nav{display:none}.mobile-nav-wrap{display:block}.panel{padding:14px}.hero{grid-template-columns:1fr;text-align:center}.toolbar{display:grid;grid-template-columns:1fr 1fr;width:100%}.toolbar .btn{padding:14px 10px;font-size:.95rem}.biz{grid-template-columns:52px 1fr;gap:10px}.biz-icon{width:52px;font-size:1.5rem}.buy{grid-column:1/-1;width:100%;padding:12px}.tree,.ach-grid,.save-grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="glass">
+    <div>
+      <h1>NEON <span>NEXUS</span> TYCOON</h1>
+      <p>Ultimate Endgame Edition</p>
+    </div>
+    <div class="topstats">
+      <span class="chip">Crédits <b id="moneyTop">0</b></span>
+      <span class="chip">/s <b id="rateTop">0</b></span>
+      <span class="chip">Noyaux <b id="coresTop">0</b></span>
+      <span class="chip">Quantum <b id="qtTop">0</b></span>
+    </div>
+  </header>
+
+  <div class="mobile-nav-wrap">
+    <select id="mobileNav" class="mobile-select" aria-label="Choisir un menu">
+      <option value="empire">🏢 Empire</option>
+      <option value="upgrades">⚡ Améliorations</option>
+      <option value="research">🧬 Recherche</option>
+      <option value="quantum">♦️ Quantum</option>
+      <option value="projects">🚀 Projets</option>
+      <option value="prestige">✨ Transcendance</option>
+      <option value="analytics">📊 Analyses</option>
+      <option value="vault">🔐 Coffre</option>
+    </select>
+  </div>
+
+  <nav>
+    <button class="tab active" data-page="empire">Empire</button>
+    <button class="tab" data-page="upgrades">Améliorations</button>
+    <button class="tab" data-page="research">Recherche</button>
+    <button class="tab" data-page="quantum">Quantum</button>
+    <button class="tab" data-page="projects">Projets</button>
+    <button class="tab" data-page="prestige">Transcendance</button>
+    <button class="tab" data-page="analytics">Analyses</button>
+    <button class="tab" data-page="vault">Coffre</button>
+  </nav>
+
+  <main>
+    <section id="empire" class="page active">
+      <div class="grid">
+        <div>
+          <div class="panel glass hero">
+            <div>
+              <div class="sub">CAPITAL DISPONIBLE</div>
+              <div class="money" id="money">0 ¢</div>
+              <div class="rate">+<span id="rate">0</span> ¢/s</div>
+            </div>
+            <div class="toolbar">
+              <button id="manualBtn" class="btn primary">⚡ Générer <span id="manualPower">1</span></button>
+              <button class="btn" id="buyMode">Achat : x1</button>
+            </div>
+          </div>
+          <div class="panel glass">
+            <h2>Divisions</h2>
+            <div id="businessList" class="businesses"></div>
+          </div>
+        </div>
+        <aside>
+          <div class="panel glass">
+            <h3>⚡ Événement</h3>
+            <b id="eventName">Marché stable</b>
+            <p id="eventDesc" class="sub"></p>
+            <div class="progress"><span id="eventBar"></span></div>
+            <p>Temps : <b id="eventTime">--</b></p>
+          </div>
+          <div class="panel glass">
+            <h3>Mission</h3>
+            <div id="missionBox"></div>
+          </div>
+          <div class="panel glass">
+            <h3>Vue exécutive</h3>
+            <p>Historique : <b id="netWorth">0</b></p>
+            <p>Multiplicateur : <b id="globalMult">x1</b></p>
+            <p>Temps : <b id="playTime">00:00:00</b></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="upgrades" class="page">
+      <div class="panel glass">
+        <h2>Améliorations commerciales</h2>
+        <div id="upgradeList" class="tree"></div>
+      </div>
+    </section>
+
+    <section id="research" class="page">
+      <div class="panel glass">
+        <h2>Recherche permanente</h2>
+        <p>Points : <b id="rp">0</b> 🧬</p>
+        <div id="researchTree" class="tree"></div>
+        <div class="card" style="margin-top:12px">
+          <h3>Recherche infinie</h3>
+          <p>Rang <b id="infLevel">0</b>, +1 % de production par rang.</p>
+          <button id="infBtn" class="btn primary"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="quantum" class="page">
+      <div class="panel glass">
+        <h2>Réseau Quantum</h2>
+        <p>Jetons : <b id="qt">0</b> ♦. Déblocage après la première transcendance.</p>
+        <div id="quantumTree" class="tree"></div>
+      </div>
+      <div class="panel glass">
+        <h2>Super Contrat</h2>
+        <div id="contractBox"></div>
+      </div>
+    </section>
+
+    <section id="projects" class="page">
+      <div class="panel glass">
+        <h2>Méga-projets</h2>
+        <p class="sub">Achetez des constructions permanentes qui survivent aux transcendances.</p>
+        <div id="projectList" class="tree"></div>
+      </div>
+      <div class="panel glass">
+        <h2>Ascension</h2>
+        <p>Fragments : <b id="shards">0</b>. L'ascension demande 5 transcendances et 1e75 crédits de session.</p>
+        <button id="ascendBtn" class="btn gold">Ascension</button>
+      </div>
+    </section>
+
+    <section id="prestige" class="page">
+      <div class="split">
+        <div class="panel glass">
+          <div class="sub">NIVEAU DE TRANSCENDANCE</div>
+          <div class="prestige-level" id="prestigeLevel">0</div>
+          <p>Chaque palier demande 500 fois plus de crédits. Les noyaux, recherches, Jetons Quantum, projets et fragments sont conservés.</p>
+          <div class="progress"><span id="prestigeProgress"></span></div>
+          <p id="prestigeRequirement"></p>
+          <button id="prestigeBtn" class="btn gold">Transcender</button>
+        </div>
+        <div class="panel glass">
+          <h2>Boutique de noyaux</h2>
+          <div id="coreShop" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" class="page">
+      <div class="kpis">
+        <div class="kpi">Session<strong id="sessionGain">0</strong></div>
+        <div class="kpi">Historique<strong id="lifetime">0</strong></div>
+        <div class="kpi">Meilleur /s<strong id="bestRate">0</strong></div>
+        <div class="kpi">Missions<strong id="missionsDone">0</strong></div>
+      </div>
+      <div class="panel glass">
+        <h2>Succès</h2>
+        <div id="achievementList" class="ach-grid"></div>
+      </div>
+    </section>
+
+    <section id="vault" class="page">
+      <div class="panel glass">
+        <h2>Coffre</h2>
+        <div class="save-grid">
+          <button id="saveBtn" class="btn primary">Sauvegarder</button>
+          <button id="exportBtn" class="btn">Exporter JSON</button>
+          <label for="importFile" class="btn" style="text-align:center">Importer JSON</label>
+          <input id="importFile" type="file" accept=".json">
+          <button id="resetBtn" class="btn red">Nouvelle partie</button>
+        </div>
+        <p id="saveStatus" class="sub"></p>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(()=>{
+  'use strict';
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],KEY='neonNexusSaveV1';
+  let storageOK=true;
+
+  const businesses=[
+    ['kiosk','🖥️','Kiosque numérique',15,1,0],
+    ['studio','🎮','Studio indépendant',180,12,100],
+    ['cloud','☁️','Centre Cloud',2200,95,1500],
+    ['robot','🤖','Usine robotique',28000,720,18000],
+    ['orbital','🛰️','Réseau orbital',4.2e5,6200,2.5e5],
+    ['quantum','⚛️','Laboratoire quantique',7e6,5.8e4,4e6],
+    ['lunar','🌙','Colonie lunaire',1.3e8,6.2e5,7.5e7],
+    ['dyson','☀️','Essaim de Dyson',3e9,8e6,1.5e9],
+    ['temporal','⏳','Division temporelle',8e11,4e8,5e10],
+    ['aiworld','🧠','Réseau IA mondial',4e13,3e10,2e12],
+    ['singularity','🌀','Singularity Labs',3e15,2e12,1e14],
+    ['fusion','⚡','Méga-réacteurs',5e17,2e14,2e16],
+    ['galactic','🌌','Galactic Systems',8e19,3e16,3e18],
+    ['stellar','⭐','Stellar Forge',9e21,4e18,5e20],
+    ['dyson2','🌞','Sphère de Dyson',7e24,5e21,4e23],
+    ['wormhole','🕳️','Portails Wormhole',6e27,5e24,4e26],
+    ['multiverse','🌠','Multiverse Network',8e30,8e27,5e29],
+    ['nexusprime','👑','Nexus Prime',1e34,1e31,7e32],
+    ['infinity','♾️','Infinity Core',2e38,1e35,1e37],
+    ['omega','🔱','Omega Industries',5e42,3e39,2e41],
+    ['eternal','💠','Eternal Empire',9e47,6e44,3e46],
+    ['celestial','🌍','Celestial Nexus',8e53,4e50,1e52],
+    ['ascension','🚀','Ascension Protocol',1e60,1e57,5e58],
+    ['transcendent','🌈','Transcendent Nexus',1e68,1e65,1e67],
+    ['godmind','🔮','GodMind Engine',1e77,1e74,1e76],
+    ['reality','🌐','Reality Fabricator',1e88,1e85,1e87],
+    ['omniverse','🌌','Omniverse Constructor',1e100,1e97,1e99],
+    ['eternity','✨','Eternity Core',1e115,1e112,1e114]
+  ].map(x=>({id:x[0],icon:x[1],name:x[2],base:x[3],rate:x[4],unlock:x[5]}));
+
+  const upgrades=[
+    ['u1','Marketing viral','Production x2',2.5e4,'global',2],
+    ['click1','Interface neurale','Clic x10',7.5e5,'click',10],
+    ['u2','Automatisation lean','Production x2',5e6,'global',2],
+    ['u3','IA opérationnelle','Production x3',2e9,'global',3],
+    ['click2','Commande prédictive','Clic x25',8e11,'click',25],
+    ['u4','Réseau supraconducteur','Production x4',1.5e12,'global',4],
+    ['u5','Économie interplanétaire','Production x5',2e15,'global',5],
+    ['u6','Singularité productive','Production x10',5e18,'global',10],
+    ['u7','Hyper Nexus','Production x20',1e25,'global',20],
+    ['u8','Conscience galactique','Production x50',1e35,'global',50],
+    ['u9','Réseau infini','Production x100',1e50,'global',100],
+    ['u10','Omni-production','Production x250',1e70,'global',250]
+  ].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],effect:x[4],mult:x[5]}));
+
+  const research=[
+    ['r1','Économie d’échelle','+25 % production',1,null],
+    ['r2','Batteries autonomes','+20 % hors-ligne',2,'r1'],
+    ['r3','Analyse prédictive','+50 % missions',3,'r1'],
+    ['r4','Hyperautomatisation','+35 % production',4,'r2'],
+    ['r5','Marchés quantiques','Événements +50 %',5,'r3'],
+    ['r6','Boucle temporelle','+50 % hors-ligne',7,'r4']
+  ].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],req:x[4]}));
+
+  const cores=[
+    ['c1','Architecture fractale','+50 % permanent',1,.5],
+    ['c2','Capital récursif','+100 % permanent',3,1],
+    ['c3','Matrice cosmique','+200 % permanent',7,2],
+    ['c4','Conscience industrielle','+500 % permanent',15,5]
+  ].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],bonus:x[4]}));
+
+  const qnodes=[
+    ['q1','Calcul prédictif','Production +25 %',1,1.25],
+    ['q2','Nano-optimisation','Production x1,5',3,1.5],
+    ['q3','Compression dimensionnelle','Production x2',8,2],
+    ['q4','Singularité contrôlée','Production x3',20,3]
+  ].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],mult:x[4]}));
+
+  const projects=[
+    ['p1','Sphère autonome','Production x5',5e32,5],
+    ['p2','IA omnisciente','Production x10',1e50,10],
+    ['p3','Réacteur quantique','Production x25',1e70,25]
+  ].map(x=>({id:x[0],name:x[1],desc:x[2],cost:x[3],mult:x[4]}));
+
+  const achievements=[
+    ['a1','Premier pas','Générer 1 000 crédits',s=>s.lifetime>=1e3],
+    ['a2','Entrepreneur','Posséder 50 divisions',s=>totalOwned(s)>=50],
+    ['a3','Magnat','Générer 1 million',s=>s.lifetime>=1e6],
+    ['a4','Empire','Générer 1 milliard',s=>s.lifetime>=1e9],
+    ['a5','Transcendant','Effectuer une transcendance',s=>s.prestige>=1],
+    ['a6','Architecte cosmique','Débloquer Dyson',s=>s.biz.dyson>0],
+    ['a7','Empire galactique','Atteindre 1e18',s=>s.lifetime>=1e18],
+    ['a8','Maître du multivers','Atteindre 1e36',s=>s.lifetime>=1e36],
+    ['a9','Architecte omniversel','Atteindre 1e75',s=>s.lifetime>=1e75],
+    ['a10','Au-delà du temps','Atteindre 1e120',s=>s.lifetime>=1e120]
+  ];
+
+  const fresh=()=>({
+    version:4,money:25,lifetime:0,sessionGain:0,
+    biz:Object.fromEntries(businesses.map(b=>[b.id,0])),
+    upgrades:[],research:[],cores:0,coreItems:[],rp:0,prestige:0,
+    buyMode:1,missionsDone:0,playTime:0,bestRate:0,achievements:[],
+    lastSave:Date.now(),event:{type:'none',mult:1,end:Date.now()+3e4,next:Date.now()+3e4},
+    mission:null,qt:0,qnodes:[],infLevel:0,projects:[],shards:0,ascensions:0,contract:null
+  });
+
+  let state=load(),last=performance.now(),lastRender=0,toastTimer;
+
+  function load(){
+    try{
+      let x=JSON.parse(localStorage.getItem(KEY));
+      if(x)return{...fresh(),...x,biz:{...fresh().biz,...x.biz}};
+    }catch(e){}
+    return fresh();
+  }
+
+  function save(){
+    state.lastSave=Date.now();
+    try{
+      localStorage.setItem(KEY,JSON.stringify(state));
+      $('#saveStatus').textContent='Sauvegarde : '+new Date().toLocaleTimeString('fr-FR');
+    }catch(e){storageOK=false}
+  }
+
+  const fmt=n=>{
+    if(!isFinite(n))return'∞';
+    if(Math.abs(n)<1000)return Math.floor(n).toLocaleString('fr-FR');
+    if(Math.abs(n)>=1e36)return n.toExponential(2).replace('+','');
+    let u=['k','M','Md','B','T','Qa','Qi','Sx','Sp','Oc','No'],i=-1;
+    while(Math.abs(n)>=1000&&i<u.length-1){n/=1000;i++}
+    return n.toLocaleString('fr-FR',{maximumFractionDigits:2})+' '+u[i];
+  };
+
+  const totalOwned=s=>Object.values(s.biz).reduce((a,b)=>a+b,0);
+  const upgMult=t=>upgrades.filter(u=>u.effect===t&&state.upgrades.includes(u.id)).reduce((a,u)=>a*u.mult,1);
+  const coreMult=()=>1+cores.filter(c=>state.coreItems.includes(c.id)).reduce((a,c)=>a+c.bonus,0);
+  const qMult=()=>qnodes.filter(q=>state.qnodes.includes(q.id)).reduce((a,q)=>a*q.mult,1);
+  const projectMult=()=>projects.filter(p=>state.projects.includes(p.id)).reduce((a,p)=>a*p.mult,1);
+  const globalMult=()=>upgMult('global')*coreMult()*(1+(state.research.includes('r1')?.25:0)+(state.research.includes('r4')?.35:0))*qMult()*projectMult()*(1+state.infLevel*.01)*(1+state.prestige*.1+state.cores*.25)*(1+state.shards*.5)*(Date.now()<state.event.end?state.event.mult:1);
+  const bizRate=b=>(state.biz[b.id]||0)*b.rate*globalMult();
+  const rate=()=>businesses.reduce((a,b)=>a+bizRate(b),0);
+  const manual=()=>Math.max(1,Math.sqrt(Math.max(1,rate())))*upgMult('click');
+  const price=(b,n=state.buyMode)=>b.base*Math.pow(1.15,state.biz[b.id]||0)*(Math.pow(1.15,n)-1)/.15;
+  const goal=()=>1e9*Math.pow(500,state.prestige);
+
+  function toast(t){
+    let e=$('#toast');
+    e.textContent=t;
+    e.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>e.classList.remove('show'),2500);
+  }
+
+  function buyBiz(b){
+    let c=price(b);
+    if(state.money>=c){
+      state.money-=c;
+      state.biz[b.id]+=state.buyMode;
+      render();
+    }
+  }
+
+  function createMission(){
+    let k=['earn','own','rate'][Math.floor(Math.random()*3)],
+        z=Math.max(1,state.missionsDone+1),
+        target=k==='earn'?1e4*Math.pow(5,Math.floor(z/2)):k==='own'?20+z*10:500*Math.pow(4,Math.floor(z/2));
+    state.mission={kind:k,target,start:k==='earn'?state.lifetime:0,reward:target*.12};
+  }
+
+  function missionValue(){
+    let m=state.mission;
+    return m.kind==='earn'?state.lifetime-m.start:m.kind==='own'?totalOwned(state):rate();
+  }
+
+  function claimMission(){
+    if(missionValue()<state.mission.target)return;
+    state.money+=state.mission.reward*(state.research.includes('r3')?1.5:1);
+    state.rp++;
+    state.missionsDone++;
+    createMission();
+    render();
+  }
+
+  function createContract(){
+    let scale=state.prestige+state.ascensions*5+1;
+    state.contract={target:1e10*Math.pow(30,scale),start:state.lifetime,reward:1+Math.floor(scale/3)};
+  }
+
+  function contractValue(){return state.lifetime-state.contract.start}
+
+  function claimContract(){
+    if(contractValue()<state.contract.target)return;
+    state.qt+=state.contract.reward;
+    createContract();
+    toast('Jetons Quantum obtenus');
+    render();
+  }
+
+  function renderBusinesses(){
+    let el=$('#businessList');
+    el.innerHTML='';
+    businesses.forEach(b=>{
+      let open=state.lifetime>=b.unlock||state.biz[b.id]>0,d=document.createElement('div'),c=price(b);
+      d.className='biz'+(open?'':' locked');
+      d.innerHTML=`<div class="biz-icon">${b.icon}</div><div><h3>${b.name}</h3><div class="sub">${open?'Niveau '+state.biz[b.id]:'Déblocage à '+fmt(b.unlock)}</div><span class="mini">${fmt(bizRate(b))}/s</span></div><button class="btn primary buy" ${!open||state.money<c?'disabled':''}>Acheter x${state.buyMode}<br><small>${fmt(c)} ¢</small></button>`;
+      d.querySelector('button').onclick=()=>buyBiz(b);
+      el.appendChild(d);
+    });
+  }
+
+  function cards(el,data,owned,currency,buy){
+    $(el).innerHTML='';
+    data.forEach(x=>{
+      let o=owned.includes(x.id),d=document.createElement('div');
+      d.className='card'+(o?' owned':'');
+      d.innerHTML=`<h3>${x.name}</h3><p class="sub">${x.desc}</p><button class="btn ${o?'':'primary'}" ${o?'disabled':''}>${o?'ACQUIS':fmt(x.cost)+' '+currency}</button>`;
+      d.querySelector('button').onclick=()=>buy(x,o);
+      $(el).appendChild(d);
+    });
+  }
+
+  function renderAllCards(){
+    cards('#upgradeList',upgrades,state.upgrades,'¢',(u,o)=>{if(!o&&state.money>=u.cost){state.money-=u.cost;state.upgrades.push(u.id);render()}});
+    cards('#coreShop',cores,state.coreItems,'noyaux',(c,o)=>{if(!o&&state.cores>=c.cost){state.cores-=c.cost;state.coreItems.push(c.id);render()}});
+    cards('#quantumTree',qnodes,state.qnodes,'♦',(q,o)=>{if(!o&&state.qt>=q.cost){state.qt-=q.cost;state.qnodes.push(q.id);render()}});
+    cards('#projectList',projects,state.projects,'¢',(p,o)=>{if(!o&&state.money>=p.cost){state.money-=p.cost;state.projects.push(p.id);render()}});
+    $('#researchTree').innerHTML='';
+    research.forEach(x=>{
+      let o=state.research.includes(x.id),lock=x.req&&!state.research.includes(x.req),d=document.createElement('div');
+      d.className='card'+(o?' owned':'');
+      d.innerHTML=`<h3>${x.name}</h3><p class="sub">${x.desc}</p><button class="btn" ${o||lock||state.rp<x.cost?'disabled':''}>${o?'RECHERCHÉ':x.cost+' 🧬'}</button>`;
+      d.querySelector('button').onclick=()=>{state.rp-=x.cost;state.research.push(x.id);render()};
+      $('#researchTree').appendChild(d);
+    });
+  }
+
+  function transcend(){
+    if(state.sessionGain<goal())return;
+    if(!confirm('Transcender et gagner un noyau ?'))return;
+    state.cores++;
+    state.qt+=Math.max(0,Math.floor(state.prestige/2));
+    state.prestige++;
+    state.money=25;
+    state.biz=fresh().biz;
+    state.upgrades=[];
+    state.sessionGain=0;
+    state.mission=null;
+    createMission();
+    render();
+  }
+
+  function ascend(){
+    if(state.prestige<5||state.sessionGain<1e75)return toast('Conditions non atteintes');
+    if(!confirm('Ascension : réinitialiser également la transcendance ?'))return;
+    let gain=Math.max(1,Math.floor(Math.log10(state.sessionGain)/25));
+    state.shards+=gain;
+    state.ascensions++;
+    state.prestige=0;
+    state.money=25;
+    state.biz=fresh().biz;
+    state.upgrades=[];
+    state.sessionGain=0;
+    state.cores=0;
+    toast('Ascension réussie : +'+gain+' fragments');
+    render();
+  }
+
+  function renderMission(){
+    if(!state.mission)createMission();
+    let m=state.mission,v=missionValue();
+    $('#missionBox').innerHTML=`<b>${{earn:'Produire',own:'Posséder des divisions',rate:'Atteindre un revenu/s'}[m.kind]}</b><p>${fmt(v)} / ${fmt(m.target)}</p><div class="progress"><span style="width:${Math.min(100,v/m.target*100)}%"></span></div><p>Récompense : ${fmt(m.reward)} ¢ + 1 🧬</p><button id="claimMission" class="btn primary" ${v<m.target?'disabled':''}>Réclamer</button>`;
+    $('#claimMission').onclick=claimMission;
+  }
+
+  function renderContract(){
+    if(!state.contract)createContract();
+    let v=contractValue(),m=state.contract;
+    $('#contractBox').innerHTML=`<p>Produire ${fmt(m.target)} crédits supplémentaires.</p><p>${fmt(v)} / ${fmt(m.target)}</p><div class="progress"><span style="width:${Math.min(100,v/m.target*100)}%"></span></div><p>Récompense : ${m.reward} ♦</p><button id="claimContract" class="btn gold" ${v<m.target?'disabled':''}>Réclamer</button>`;
+    $('#claimContract').onclick=claimContract;
+  }
+
+  function handleEvent(){
+    let n=Date.now();
+    if(n>=state.event.end&&state.event.type!=='none')state.event={type:'none',mult:1,end:n+3e4,next:n+3e4};
+    if(state.event.type==='none'&&n>=state.event.next){
+      let e=[['Boom du marché',2,45000],['Contrat gouvernemental',3,25000],['Pénurie énergétique',.55,30000],['Vague d’innovation',4,15000]][Math.floor(Math.random()*4)];
+      state.event={type:e[0],mult:e[1],end:n+e[2],next:n+e[2]+5e4};
+      toast('Événement : '+e[0]);
+    }
+  }
+
+  function renderEvent(){
+    let a=state.event.type!=='none'&&Date.now()<state.event.end,r=(a?state.event.end:state.event.next)-Date.now();
+    $('#eventName').textContent=a?state.event.type:'Marché stable';
+    $('#eventDesc').textContent=a?'Multiplicateur x'+state.event.mult:'Prochain cycle économique';
+    $('#eventTime').textContent=Math.max(0,Math.ceil(r/1000))+' s';
+    $('#eventBar').style.width=(a?100:Math.max(0,100-r/500))+'%';
+  }
+
+  function checkAchievements(){
+    achievements.forEach(a=>{
+      if(!state.achievements.includes(a[0])&&a[3](state)){
+        state.achievements.push(a[0]);
+        state.rp++;
+        toast('Succès : '+a[1]);
+      }
+    });
+  }
+
+  function render(){
+    let r=rate(),g=goal(),pct=Math.min(100,state.sessionGain/g*100);
+    state.bestRate=Math.max(state.bestRate,r);
+    $('#money').textContent=fmt(state.money)+' ¢';
+    $('#moneyTop').textContent=fmt(state.money);
+    $('#rate').textContent=$('#rateTop').textContent=fmt(r);
+    $('#coresTop').textContent=state.cores;
+    $('#qtTop').textContent=$('#qt').textContent=state.qt;
+    $('#manualPower').textContent=fmt(manual());
+    $('#netWorth').textContent=fmt(state.lifetime);
+    $('#globalMult').textContent='x'+fmt(globalMult());
+    $('#playTime').textContent=new Date((state.playTime%86400)*1000).toISOString().slice(11,19);
+    $('#buyMode').textContent='Achat : x'+state.buyMode;
+    $('#rp').textContent=state.rp;
+    $('#prestigeLevel').textContent=state.prestige;
+    $('#prestigeProgress').style.width=pct+'%';
+    $('#prestigeRequirement').innerHTML=`${fmt(state.sessionGain)} / ${fmt(g)} (${pct.toFixed(3)} %)`;
+    $('#prestigeBtn').disabled=state.sessionGain<g;
+    $('#sessionGain').textContent=fmt(state.sessionGain);
+    $('#lifetime').textContent=fmt(state.lifetime);
+    $('#bestRate').textContent=fmt(state.bestRate);
+    $('#missionsDone').textContent=state.missionsDone;
+    $('#infLevel').textContent=state.infLevel;
+    let ic=Math.ceil(10*Math.pow(1.35,state.infLevel));
+    $('#infBtn').textContent='Rang suivant : '+ic+' 🧬';
+    $('#infBtn').disabled=state.rp<ic;
+    $('#shards').textContent=state.shards;
+    $('#ascendBtn').disabled=state.prestige<5||state.sessionGain<1e75;
+    renderBusinesses();
+    renderAllCards();
+    renderMission();
+    renderContract();
+    renderEvent();
+    $('#achievementList').innerHTML=achievements.map(a=>`<div class="card ${state.achievements.includes(a[0])?'done':''}"><h3>🏆 ${a[1]}</h3><p class="sub">${a[2]}</p></div>`).join('');
+  }
+
+  function switchPage(pageId){
+    $$('.tab,.page').forEach(e=>e.classList.remove('active'));
+    const tab=$(`.tab[data-page="${pageId}"]`);
+    if(tab)tab.classList.add('active');
+    const page=$('#'+pageId);
+    if(page)page.classList.add('active');
+    const select=$('#mobileNav');
+    if(select&&select.value!==pageId)select.value=pageId;
+  }
+
+  $$('.tab').forEach(b=>b.onclick=()=>switchPage(b.dataset.page));
+  $('#mobileNav').onchange=e=>switchPage(e.target.value);
+
+  $('#manualBtn').onclick=()=>{let n=manual();state.money+=n;state.lifetime+=n;state.sessionGain+=n;render()};
+  $('#buyMode').onclick=()=>{state.buyMode=state.buyMode===1?10:state.buyMode===10?25:state.buyMode===25?100:1;render()};
+  $('#prestigeBtn').onclick=transcend;
+  $('#ascendBtn').onclick=ascend;
+  $('#infBtn').onclick=()=>{let c=Math.ceil(10*Math.pow(1.35,state.infLevel));if(state.rp>=c){state.rp-=c;state.infLevel++;render()}};
+  $('#saveBtn').onclick=()=>{save();toast('Partie sauvegardée')};
+  $('#exportBtn').onclick=()=>{save();let b=new Blob([JSON.stringify({game:'Neon Nexus Tycoon',save:state},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='neon_nexus_ultimate_save.json';a.click()};
+  $('#importFile').onchange=e=>{let f=e.target.files[0],rd=new FileReader();rd.onload=()=>{try{let d=JSON.parse(rd.result);state={...fresh(),...(d.save||d),biz:{...fresh().biz,...(d.save||d).biz}};save();render();toast('Sauvegarde importée')}catch(err){toast('Fichier incompatible')}};rd.readAsText(f)};
+  $('#resetBtn').onclick=()=>{if(confirm('Effacer cette partie ?')){state=fresh();save();render()}};
+
+  let offline=Math.min(172800,Math.max(0,(Date.now()-state.lastSave)/1000)),
+      eff=Math.min(1,.35+(state.research.includes('r2')?.2:0)+(state.research.includes('r6')?.5:0)),
+      gain=rate()*offline*eff;
+  if(gain>0){
+    state.money+=gain;
+    state.lifetime+=gain;
+    state.sessionGain+=gain;
+    setTimeout(()=>toast('Hors ligne : +'+fmt(gain)),400);
+  }
+  if(!state.mission)createMission();
+  if(!state.contract)createContract();
+  render();
+  setInterval(save,10000);
+
+  function tick(now){
+    let dt=Math.min(.5,(now-last)/1000);
+    last=now;
+    state.playTime+=dt;
+    handleEvent();
+    let n=rate()*dt;
+    state.money+=n;
+    state.lifetime+=n;
+    state.sessionGain+=n;
+    if(now-lastRender>500){
+      lastRender=now;
+      checkAchievements();
+      render();
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
